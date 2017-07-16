@@ -1,0 +1,15 @@
+http://o7planning.org/en/10169/java-servlet-tutorial  
+
+http://o7planning.org/en/10285/create-a-simple-java-web-application-using-servlet-jsp-and-jdbc
+
+git steps
+
+Create a repository in github 
+link copy 
+terminal:  git clone link 
+cd project name
+1.git add .
+2.git commit -m"any msg"
+	git config --global user.email "email id"
+	git config --global user.name "your name"
+3.git push origin master 
