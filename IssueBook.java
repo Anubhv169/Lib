@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
 
 public class IssueBook extends JFrame {
 	private final JLabel lblNewLabel = new JLabel("New label");
@@ -20,7 +21,6 @@ public class IssueBook extends JFrame {
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
-	private JTextField textField_4;
 	public IssueBook(String str) {
 		super(str);
 		getContentPane().setForeground(Color.BLACK);
@@ -61,8 +61,13 @@ public class IssueBook extends JFrame {
 	    textField_3 = new JTextField();
 	    textField_3.setColumns(10);
 	    
-	    textField_4 = new JTextField();
-	    textField_4.setColumns(10);
+	    JComboBox comboBox = new JComboBox();
+	    comboBox.setBackground(Color.WHITE);
+	    comboBox.insertItemAt("select", 0);
+	    comboBox.insertItemAt("Admin", 1);
+	       comboBox.insertItemAt("Faculty", 2);
+	       comboBox.insertItemAt("Student", 3);
+	       comboBox.setSelectedIndex(0);
 	    
 	    JButton btnNewButton = new JButton("ISSUE");
 	    btnNewButton.addActionListener(new ActionListener() {
@@ -71,7 +76,7 @@ public class IssueBook extends JFrame {
 		        String name = IssueBook.this.textField_1.getText();
 		        String contact = IssueBook.this.textField_2.getText();
 		        String email = IssueBook.this.textField_3.getText();
-		        String utype = IssueBook.this.textField_4.getText();
+		        String utype = (String)comboBox.getSelectedItem();
 		        if ((name.length() == 0) || (bookid.length() == 0) || (contact.length() == 0) || (email.length() == 0) || (utype.length() == 0))
 		        {
 		          JOptionPane.showMessageDialog(IssueBook.this.getParent(), "pls fill all the entries", "error", 0);
@@ -79,7 +84,7 @@ public class IssueBook extends JFrame {
 		    		 textField_1.setText(null);
 		    		 textField_2.setText(null);
 		    		 textField_3.setText(null);
-		    		 textField_4.setText(null);
+		    		 comboBox.setSelectedIndex(0);
 		        }
 		        else
 		        {
@@ -96,47 +101,99 @@ public class IssueBook extends JFrame {
 		        		 ResultSet res = ps.executeQuery();
 		                 if (res.next())
 		                 {
-		                   flag = 1;
+		                	 flag=1;
 		                 }
-		        		 
-		        		 if(flag==0)
-		        		 {
-		        			 JOptionPane.showMessageDialog(IssueBook.this.getParent(), "Not a registered User", "error", 0);
+		        	 }
+		                 catch(Exception e1)
+			        	 {
+			        		 e1.printStackTrace();
+			        	 }
+		                 if(flag==0)
+		                 {
+		                	 JOptionPane.showMessageDialog(IssueBook.this.getParent(), "Not a registered User", "error", 0);
 		        			 textField.setText(null);
 		    	    		 textField_1.setText(null);
 		    	    		 textField_2.setText(null);
 		    	    		 textField_3.setText(null);
-		    	    		 textField_4.setText(null);
-		        		 }
+		    	    		 comboBox.setSelectedIndex(0);
+		                 }
+		        	
 		        		 else
 		        		 {
-		        			 String query1 = "insert into issuebook values(?,?,?,?,?)";
+		        			  String query1 = "insert into issuebook values(?,?,?,?,?)";
 		        	          Connection con1 = DBInfo1.con;
 		        	          int flag1 = 0;
 		        	          try
 		        	          {
 		        	            PreparedStatement ps1 = con1.prepareStatement(query1);
-		        	            ps.setString(1,bookid);
-		        	            ps.setString(2, name);
-		        	            ps.setString(3, contact);
-		        	            ps.setString(4, email);
-		        	            ps.setString(5, utype);
+		        	            ps1.setString(1,bookid);
+		        	            ps1.setString(2, name);
+		        	            ps1.setString(3, contact);
+		        	            ps1.setString(4, email);
+		        	           ps1.setString(5, utype);
 		        	           
 		        	            flag1 = ps1.executeUpdate();
+		        	            
+		        	            
 		        	          }
 		        	          catch (Exception e1)
 		        	          {
 		        	            e1.printStackTrace();
 		        	          }
+		        	          if(flag1==1)
+		        	            {
+		        	            	 JOptionPane.showMessageDialog(IssueBook.this.getParent(), "Book Issued");
+				        		
+				    	    		 
+				    	    		 
+					        	   	 textField.setText(null);
+				    	    		 textField_1.setText(null);
+				    	    		 textField_2.setText(null);
+				    	    		 textField_3.setText(null);
+				    	    		 comboBox.setSelectedIndex(0);
+				    	    		 
+				    	    		 int status=0;
+					        	      	int quantity=0,issued=0;
+					        	      	try{
+					        	      	Connection con3 = DBInfo1.con;
+					        	      		
+					        	      		PreparedStatement ps1=con.prepareStatement("select quantity,issued from book where id=?");
+					        	      		ps1.setString(1,bookid);
+					        	      		ResultSet rs=ps1.executeQuery();
+					        	      		if(rs.next()){
+					        	      			quantity=rs.getInt("quantity");
+					        	      			issued=rs.getInt("issued");
+					        	      		}
+					        	      		
+					        	      		if(quantity>0){
+					        	      		PreparedStatement ps2=con.prepareStatement("update book set quantity=?,issued=? where id=?");
+					        	      		ps2.setInt(1,quantity-1);
+					        	      		ps2.setInt(2,issued+1);
+					        	      		ps2.setString(3,bookid);
+					        	      		
+					        	      		status=ps2.executeUpdate();
+					        	      		}
+					        	      		
+					        	      	}catch(Exception e1){System.out.println(e1);}
+					        	      	
+					        	      	System.out.println("book updated");     
+					        		
+		        	            }
+		        	            else
+		        	            {
+		        	            	 JOptionPane.showMessageDialog(IssueBook.this.getParent(), "Book not Issued Check the details again", "error", 0);
+				        			 textField.setText(null);
+				    	    		 textField_1.setText(null);
+				    	    		 textField_2.setText(null);
+				    	    		 textField_3.setText(null);
+				    	    		 comboBox.setSelectedIndex(0);
+		        	            }
 		        	          
 		        	          
-		        		 }
+		        	          
 		        		
-		        	 }
-		        	 catch(Exception e1)
-		        	 {
-		        		 e1.printStackTrace();
-		        	 }
+		        	 
+		        		 }
 		        }
 		        
 	    	}
@@ -150,7 +207,7 @@ public class IssueBook extends JFrame {
 	    		 textField_1.setText(null);
 	    		 textField_2.setText(null);
 	    		 textField_3.setText(null);
-	    		 textField_4.setText(null);
+	    		 comboBox.setSelectedIndex(0);
 	    	}
 	    });
 	    btnUpdate.setBackground(Color.WHITE);
@@ -164,6 +221,8 @@ public class IssueBook extends JFrame {
 	    	}
 	    });
 	    btnBack.setBackground(Color.WHITE);
+	    
+	   
 	    GroupLayout groupLayout = new GroupLayout(getContentPane());
 	    groupLayout.setHorizontalGroup(
 	    	groupLayout.createParallelGroup(Alignment.LEADING)
@@ -184,18 +243,18 @@ public class IssueBook extends JFrame {
 	    					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 	    						.addGroup(groupLayout.createSequentialGroup()
 	    							.addGap(42)
-	    							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-	    								.addComponent(textField_4, GroupLayout.PREFERRED_SIZE, 176, GroupLayout.PREFERRED_SIZE)
-	    								.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, 176, GroupLayout.PREFERRED_SIZE)
-	    								.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, 176, GroupLayout.PREFERRED_SIZE)
-	    								.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, 176, GroupLayout.PREFERRED_SIZE)
-	    								.addComponent(textField, GroupLayout.PREFERRED_SIZE, 176, GroupLayout.PREFERRED_SIZE)))
+	    							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+	    								.addComponent(textField_3, GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+	    								.addComponent(textField_2, GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+	    								.addComponent(textField_1, GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+	    								.addComponent(textField, GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+	    								.addComponent(comboBox, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
 	    						.addGroup(groupLayout.createSequentialGroup()
 	    							.addGap(17)
 	    							.addComponent(btnUpdate)
 	    							.addGap(44)
 	    							.addComponent(btnBack)))))
-	    			.addContainerGap(58, Short.MAX_VALUE))
+	    			.addContainerGap(87, Short.MAX_VALUE))
 	    );
 	    groupLayout.setVerticalGroup(
 	    	groupLayout.createParallelGroup(Alignment.LEADING)
@@ -221,7 +280,7 @@ public class IssueBook extends JFrame {
 	    			.addGap(18)
 	    			.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 	    				.addComponent(lblUsertype, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
-	    				.addComponent(textField_4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+	    				.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 	    			.addPreferredGap(ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
 	    			.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 	    				.addComponent(btnNewButton)
@@ -233,9 +292,5 @@ public class IssueBook extends JFrame {
 	    //setResizable(false);
 	}
 
-	public static void main(String[] args) {
-		IssueBook i = new IssueBook("Issue Book");
-		i.setVisible(true);
-	}
-
+	
 }

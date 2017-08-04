@@ -55,10 +55,11 @@ public class Addnewbook
     setResizable(false);
     
     JMenuBar menuBar = new JMenuBar();
-    menuBar.setBackground(new Color(255, 255, 240));
+    menuBar.setBackground(Color.LIGHT_GRAY);
     setJMenuBar(menuBar);
     
     JMenu mnNewMenu = new JMenu("Add New");
+    mnNewMenu.setBackground(Color.LIGHT_GRAY);
     menuBar.add(mnNewMenu);
     
     JMenuItem mntmNewMenuItem = new JMenuItem("author");

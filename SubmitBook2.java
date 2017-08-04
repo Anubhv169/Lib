@@ -15,13 +15,13 @@ import java.sql.ResultSet;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 
-public class SubmitBook extends JFrame {
+public class SubmitBook2 extends JFrame {
 	private final JLabel lblNewLabel = new JLabel("Submit Book");
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
-	public SubmitBook(String str) {
+	public SubmitBook2(String str) {
 		super(str);
 		getContentPane().setForeground(Color.BLACK);
 		getContentPane().setBackground(new Color(255, 255, 240));
@@ -72,14 +72,14 @@ public class SubmitBook extends JFrame {
 	    JButton btnNewButton = new JButton("RETURN");
 	    btnNewButton.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		String bookid = SubmitBook.this.textField.getText();
-		        String name = SubmitBook.this.textField_1.getText();
-		        String contact = SubmitBook.this.textField_2.getText();
-		        String email = SubmitBook.this.textField_3.getText();
+	    		String bookid = SubmitBook2.this.textField.getText();
+		        String name = SubmitBook2.this.textField_1.getText();
+		        String contact = SubmitBook2.this.textField_2.getText();
+		        String email = SubmitBook2.this.textField_3.getText();
 		        String utype = (String)comboBox.getSelectedItem();
 		        if ((name.length() == 0) || (bookid.length() == 0) || (contact.length() == 0) || (email.length() == 0) || (utype.length() == 0))
 		        {
-		          JOptionPane.showMessageDialog(SubmitBook.this.getParent(), "pls fill all the entries", "error", 0);
+		          JOptionPane.showMessageDialog(SubmitBook2.this.getParent(), "pls fill all the entries", "error", 0);
 		          textField.setText(null);
 		    		 textField_1.setText(null);
 		    		 textField_2.setText(null);
@@ -110,7 +110,7 @@ public class SubmitBook extends JFrame {
 			        	 }
 		                 if(flag==0)
 		                 {
-		                	 JOptionPane.showMessageDialog(SubmitBook.this.getParent(), "Not a registered User", "error", 0);
+		                	 JOptionPane.showMessageDialog(SubmitBook2.this.getParent(), "Not a registered User", "error", 0);
 		        			 textField.setText(null);
 		    	    		 textField_1.setText(null);
 		    	    		 textField_2.setText(null); 
@@ -142,33 +142,8 @@ public class SubmitBook extends JFrame {
 		        	          }
 		        	          if(flag1==1)
 		        	            {
-		        	            	 JOptionPane.showMessageDialog(SubmitBook.this.getParent(), "Book Submitted");
-				        			
-		        	            	 int status=0;
-					        	      	int quantity=0,issued=0;
-					        	      	try{
-					        	      	Connection con3 = DBInfo1.con;
-					        	      		
-					        	      		PreparedStatement ps1=con.prepareStatement("select quantity,issued from book where id=?");
-					        	      		ps1.setString(1,bookid);
-					        	      		ResultSet rs=ps1.executeQuery();
-					        	      		if(rs.next()){
-					        	      			quantity=rs.getInt("quantity");
-					        	      			issued=rs.getInt("issued");
-					        	      		}
-					        	      		
-					        	      		if(quantity>0){
-					        	      		PreparedStatement ps2=con.prepareStatement("update book set quantity=?,issued=? where id=?");
-					        	      		ps2.setInt(1,quantity+1);
-					        	      		ps2.setInt(2,issued-1);
-					        	      		ps2.setString(3,bookid);
-					        	      		
-					        	      		status=ps2.executeUpdate();
-					        	      		}
-					        	      
-					        	      	}catch(Exception e1){System.out.println(e1);}
-		        	            	 
-		        	            	 textField.setText(null);
+		        	            	 JOptionPane.showMessageDialog(SubmitBook2.this.getParent(), "Book Submitted");
+				        			 textField.setText(null);
 				    	    		 textField_1.setText(null);
 				    	    		 textField_2.setText(null);
 				    	    		 textField_3.setText(null);
@@ -176,7 +151,7 @@ public class SubmitBook extends JFrame {
 		        	            }
 		        	            else
 		        	            {
-		        	            	 JOptionPane.showMessageDialog(SubmitBook.this.getParent(), "Book not Returned Check the details again", "error", 0);
+		        	            	 JOptionPane.showMessageDialog(SubmitBook2.this.getParent(), "Book not Returned Check the details again", "error", 0);
 				        			 textField.setText(null);
 				    	    		 textField_1.setText(null);
 				    	    		 textField_2.setText(null);
@@ -184,7 +159,29 @@ public class SubmitBook extends JFrame {
 				    	    		 comboBox.setSelectedIndex(0);
 		        	            }
 		        	   
-		        	          
+		        	          int status=0;
+			        	      	int quantity=0,issued=0;
+			        	      	try{
+			        	      	Connection con3 = DBInfo1.con;
+			        	      		
+			        	      		PreparedStatement ps1=con.prepareStatement("select quantity,issued from book where id=?");
+			        	      		ps1.setString(1,bookid);
+			        	      		ResultSet rs=ps1.executeQuery();
+			        	      		if(rs.next()){
+			        	      			quantity=rs.getInt("quantity");
+			        	      			issued=rs.getInt("issued");
+			        	      		}
+			        	      		
+			        	      		if(quantity>0){
+			        	      		PreparedStatement ps2=con.prepareStatement("update book set quantity=?,issued=? where id=?");
+			        	      		ps2.setInt(1,quantity+1);
+			        	      		ps2.setInt(2,issued-1);
+			        	      		ps2.setString(3,bookid);
+			        	      		
+			        	      		status=ps2.executeUpdate();
+			        	      		}
+			        	      
+			        	      	}catch(Exception e1){System.out.println(e1);}
 		        		 }
 		        		
 		        	 
@@ -210,14 +207,15 @@ public class SubmitBook extends JFrame {
 	    JButton btnBack = new JButton("BACK");
 	    btnBack.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		AdminSection a = new AdminSection("Admin Section");
+	    		FacultySection a = new FacultySection("Faculty Section");
 	             a.setVisible(true);
-	           SubmitBook.this.dispose();
+	          
+	           SubmitBook2.this.dispose();
 	    	}
 	    });
 	    btnBack.setBackground(Color.WHITE);
 	    
-	    
+	   
 	    GroupLayout groupLayout = new GroupLayout(getContentPane());
 	    groupLayout.setHorizontalGroup(
 	    	groupLayout.createParallelGroup(Alignment.LEADING)
@@ -248,8 +246,9 @@ public class SubmitBook extends JFrame {
 	    							.addGap(17)
 	    							.addComponent(btnUpdate)
 	    							.addGap(44)
-	    							.addComponent(btnBack)))))
-	    			.addContainerGap(87, Short.MAX_VALUE))
+	    							.addComponent(btnBack)))
+	    					.addGap(10)))
+	    			.addContainerGap(77, Short.MAX_VALUE))
 	    );
 	    groupLayout.setVerticalGroup(
 	    	groupLayout.createParallelGroup(Alignment.LEADING)

@@ -85,9 +85,8 @@ protected Object comboBox;
     JComboBox comboBox = new JComboBox();
     comboBox.insertItemAt("select", 0);
     
-    comboBox.insertItemAt("Admin", 1);
-    comboBox.insertItemAt("Faculty", 2);
-    comboBox.insertItemAt("Student", 3);
+    comboBox.insertItemAt("Faculty", 1);
+    comboBox.insertItemAt("Student", 2);
     comboBox.setSelectedIndex(0);
     comboBox.addActionListener(new ActionListener() {
     	public void actionPerformed(ActionEvent arg0) {
@@ -131,7 +130,7 @@ protected Object comboBox;
         }
         else
         {
-          String query = "insert into registration values(?,?,?,,?,?) " ;
+          String query = "insert into registration values(?,?,?,?,?) " ;
           Connection con = DBInfo1.con;
           int flag = 0;
           try

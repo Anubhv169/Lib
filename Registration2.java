@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JComboBox;
 
 public class Registration2
   extends JFrame
@@ -27,7 +28,6 @@ public class Registration2
   private JTextField textField;
   private JTextField textField_1;
   private JTextField textField_2;
-  private JTextField textField_3;
   private JPasswordField passwordField;
   private JPasswordField passwordField_1;
   
@@ -62,8 +62,6 @@ public class Registration2
     setContentPane(this.contentPane);
     setLocationRelativeTo(this);
     
-    JLabel lblNewLabel = new JLabel("New label");
-    
     JLabel lblEnterName = new JLabel("Enter name");
     lblEnterName.setName("");
     
@@ -88,10 +86,6 @@ public class Registration2
     JLabel lblEnterUsertype = new JLabel("Enter Usertype");
     lblEnterUsertype.setName("");
     
-    this.textField_3 = new JTextField();
-    this.textField_3.setBackground(Color.WHITE);
-    this.textField_3.setColumns(10);
-    
     JLabel lblEnterPassword = new JLabel("Enter Password");
     lblEnterPassword.setName("");
     
@@ -104,6 +98,14 @@ public class Registration2
     this.passwordField_1 = new JPasswordField();
     this.passwordField_1.setBackground(Color.WHITE);
     
+    JComboBox comboBox = new JComboBox();
+    comboBox.setBackground(Color.WHITE);
+ comboBox.insertItemAt("select", 0);
+ comboBox.insertItemAt("Admin", 1);
+    comboBox.insertItemAt("Faculty", 2);
+    comboBox.insertItemAt("Student", 3);
+    comboBox.setSelectedIndex(0);
+    
     JButton btnNewButton = new JButton("SAVE");
     btnNewButton.setBackground(Color.WHITE);
     btnNewButton.addActionListener(new ActionListener()
@@ -113,7 +115,7 @@ public class Registration2
         String name = Registration2.this.textField.getText();
         String contact = Registration2.this.textField_1.getText();
         String email = Registration2.this.textField_2.getText();
-        String uname = Registration2.this.textField_3.getText();
+        String uname = (String)comboBox.getSelectedItem();
         String pass = String.copyValueOf(Registration2.this.passwordField.getPassword());
         String repass = String.copyValueOf(Registration2.this.passwordField_1.getPassword());
         if ((name.length() == 0) || (contact.length() == 0) || (email.length() == 0) || (uname.length() == 0) || (pass.length() == 0) || (repass.length() == 0))
@@ -126,7 +128,7 @@ public class Registration2
           Registration2.this.textField.setText(null);
           Registration2.this.textField_1.setText(null);
           Registration2.this.textField_2.setText(null);
-          Registration2.this.textField_3.setText(null);
+          comboBox.setSelectedIndex(0);
           Registration2.this.passwordField.setText(null);
           Registration2.this.passwordField_1.setText(null);
         }
@@ -171,7 +173,7 @@ public class Registration2
             Registration2.this.textField.setText(null);
             Registration2.this.textField_1.setText(null);
             Registration2.this.textField_2.setText(null);
-            Registration2.this.textField_3.setText(null);
+            comboBox.setSelectedIndex(0);
             Registration2.this.passwordField.setText(null);
             Registration2.this.passwordField_1.setText(null);
           }
@@ -191,7 +193,7 @@ public class Registration2
         Registration2.this.textField.setText(null);
         Registration2.this.textField_1.setText(null);
         Registration2.this.textField_2.setText(null);
-        Registration2.this.textField_3.setText(null);
+        comboBox.setSelectedIndex(0);
         Registration2.this.passwordField.setText(null);
         Registration2.this.passwordField_1.setText(null);
       }
@@ -207,76 +209,72 @@ public class Registration2
         a.setVisible(true);
       }
     });
+    
+    
     GroupLayout gl_contentPane = new GroupLayout(this.contentPane);
     gl_contentPane.setHorizontalGroup(
-      gl_contentPane.createParallelGroup(GroupLayout.Alignment.LEADING)
-      .addGroup(gl_contentPane.createSequentialGroup()
-      .addGroup(gl_contentPane.createParallelGroup(GroupLayout.Alignment.LEADING)
-      .addGroup(gl_contentPane.createSequentialGroup()
-      .addGap(113)
-      .addGroup(gl_contentPane.createParallelGroup(GroupLayout.Alignment.LEADING)
-      .addComponent(lblEnterName, -2, 109, -2)
-      .addComponent(lblRetypePassword, -2, 109, -2)
-      .addComponent(lblEnterPassword, -2, 109, -2)
-      .addComponent(lblEnterUsertype, -2, 109, -2)
-      .addComponent(lblEnterEmail, -2, 109, -2)
-      .addComponent(lblEnterEmailAddress, -2, 109, -2)
-      .addComponent(btnNewButton, -2, 106, -2))
-      .addGroup(gl_contentPane.createParallelGroup(GroupLayout.Alignment.LEADING)
-      .addGroup(gl_contentPane.createSequentialGroup()
-      .addGap(52)
-      .addGroup(gl_contentPane.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-      .addComponent(this.textField_1, -1, 222, 32767)
-      .addComponent(this.textField_3, -1, 222, 32767)
-      .addComponent(this.textField_2, -1, 222, 32767)
-      .addComponent(this.textField, -1, 222, 32767)
-      .addComponent(this.passwordField)
-      .addComponent(this.passwordField_1)))
-      .addGroup(gl_contentPane.createSequentialGroup()
-      .addGap(28)
-      .addComponent(btnReset, -2, 96, -2)
-      .addGap(36)
-      .addComponent(btnLoginNow))))
-      .addGroup(gl_contentPane.createSequentialGroup()
-      .addGap(223)
-      .addComponent(lblNewLabel, -2, 73, -2)))
-      .addContainerGap(123, 32767)));
-    
+    	gl_contentPane.createParallelGroup(Alignment.LEADING)
+    		.addGroup(gl_contentPane.createSequentialGroup()
+    			.addGap(113)
+    			.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+    				.addComponent(lblEnterName, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)
+    				.addComponent(lblRetypePassword, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)
+    				.addComponent(lblEnterPassword, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)
+    				.addComponent(lblEnterUsertype, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)
+    				.addComponent(lblEnterEmail, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)
+    				.addComponent(lblEnterEmailAddress, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)
+    				.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE))
+    			.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+    				.addGroup(gl_contentPane.createSequentialGroup()
+    					.addGap(52)
+    					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+    						.addComponent(textField_1, GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
+    						.addComponent(textField_2, GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
+    						.addComponent(textField, GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
+    						.addComponent(passwordField)
+    						.addComponent(passwordField_1)
+    						.addComponent(comboBox, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+    				.addGroup(gl_contentPane.createSequentialGroup()
+    					.addGap(28)
+    					.addComponent(btnReset, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE)
+    					.addGap(36)
+    					.addComponent(btnLoginNow)))
+    			.addContainerGap(123, Short.MAX_VALUE))
+    );
     gl_contentPane.setVerticalGroup(
-      gl_contentPane.createParallelGroup(GroupLayout.Alignment.LEADING)
-      .addGroup(gl_contentPane.createSequentialGroup()
-      .addGap(31)
-      .addComponent(lblNewLabel, -2, 26, -2)
-      .addGap(27)
-      .addGroup(gl_contentPane.createParallelGroup(GroupLayout.Alignment.BASELINE)
-      .addComponent(this.textField, -2, -1, -2)
-      .addComponent(lblEnterName, -2, 27, -2))
-      .addGap(15)
-      .addGroup(gl_contentPane.createParallelGroup(GroupLayout.Alignment.TRAILING)
-      .addComponent(this.textField_1, -2, -1, -2)
-      .addComponent(lblEnterEmailAddress, -2, 27, -2))
-      .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-      .addGroup(gl_contentPane.createParallelGroup(GroupLayout.Alignment.BASELINE)
-      .addComponent(this.textField_2, -2, -1, -2)
-      .addComponent(lblEnterEmail, -2, 27, -2))
-      .addGap(17)
-      .addGroup(gl_contentPane.createParallelGroup(GroupLayout.Alignment.BASELINE)
-      .addComponent(lblEnterUsertype, -2, 27, -2)
-      .addComponent(this.textField_3, -2, -1, -2))
-      .addGap(18)
-      .addGroup(gl_contentPane.createParallelGroup(GroupLayout.Alignment.BASELINE)
-      .addComponent(lblEnterPassword, -2, 27, -2)
-      .addComponent(this.passwordField, -2, -1, -2))
-      .addGap(18)
-      .addGroup(gl_contentPane.createParallelGroup(GroupLayout.Alignment.BASELINE)
-      .addComponent(lblRetypePassword, -2, 27, -2)
-      .addComponent(this.passwordField_1, -2, -1, -2))
-      .addGap(33)
-      .addGroup(gl_contentPane.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-      .addComponent(btnLoginNow, -1, -1, 32767)
-      .addComponent(btnReset, -1, -1, 32767)
-      .addComponent(btnNewButton, -1, -1, 32767))
-      .addContainerGap(39, 32767)));
+    	gl_contentPane.createParallelGroup(Alignment.LEADING)
+    		.addGroup(gl_contentPane.createSequentialGroup()
+    			.addGap(84)
+    			.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+    				.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+    				.addComponent(lblEnterName, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
+    			.addGap(15)
+    			.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+    				.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+    				.addComponent(lblEnterEmailAddress, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
+    			.addPreferredGap(ComponentPlacement.UNRELATED)
+    			.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+    				.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+    				.addComponent(lblEnterEmail, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
+    			.addGap(17)
+    			.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+    				.addComponent(lblEnterUsertype, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+    				.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+    			.addGap(18)
+    			.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+    				.addComponent(lblEnterPassword, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+    				.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+    			.addGap(18)
+    			.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+    				.addComponent(lblRetypePassword, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+    				.addComponent(passwordField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+    			.addGap(33)
+    			.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+    				.addComponent(btnLoginNow, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+    				.addComponent(btnReset, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+    				.addComponent(btnNewButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+    			.addContainerGap(39, Short.MAX_VALUE))
+    );
     
     this.contentPane.setLayout(gl_contentPane);
   }

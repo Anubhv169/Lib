@@ -24,6 +24,8 @@ import javax.swing.LayoutStyle;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 public class Searchbook
   extends JFrame
@@ -45,31 +47,19 @@ public class Searchbook
   private JTextField textField_9_1;
   private JTextField textField_10;
   
-  public static void main(String[] args)
-  {
-    EventQueue.invokeLater(new Runnable()
-    {
-      public void run()
-      {
-        try
-        {
-          Searchbook frame = new Searchbook("Update/Delete Book");
-          frame.setVisible(true);
-        }
-        catch (Exception e)
-        {
-          e.printStackTrace();
-        }
-      }
-    });
-  }
-  
+ 
   public Searchbook(String str)
   {
 	  super(str);
     setDefaultCloseOperation(3);
     setBounds(100, 100, 849, 637);
     setLocationRelativeTo(this);
+    
+    JMenuBar menuBar = new JMenuBar();
+    setJMenuBar(menuBar);
+    
+    JMenuItem mntmNewMenuItem = new JMenuItem("Enter Book ID Then Press Tab Key ");
+    menuBar.add(mntmNewMenuItem);
     //setResizable(false);
     this.contentPane = new JPanel();
     contentPane.setBackground(new Color(255, 255, 240));
@@ -104,7 +94,7 @@ public class Searchbook
             Searchbook.this.textField_7_1.setText(res.getString(4));
             Searchbook.this.textField_8_1.setText(res.getString(5));
             Searchbook.this.textField_9_1.setText(res.getString(6));
-            Searchbook.this.textField_9_1.setText(res.getString(11));
+            Searchbook.this.textField_10.setText(res.getString(11));
            
           }
         }

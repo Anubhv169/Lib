@@ -25,24 +25,7 @@ public class SearchBookBy
 {
   private JPanel contentPane;
   
-  public static void main(String[] args)
-  {
-    EventQueue.invokeLater(new Runnable()
-    {
-      public void run()
-      {
-        try
-        {
-          SearchBookBy frame = new SearchBookBy("Search Book By");
-          frame.setVisible(true);
-        }
-        catch (Exception e)
-        {
-          e.printStackTrace();
-        }
-      }
-    });
-  }
+  
   
   public SearchBookBy(String str)
   {
@@ -124,22 +107,20 @@ public class SearchBookBy
     btnBack.setBackground(Color.WHITE);
     GroupLayout gl_contentPane = new GroupLayout(this.contentPane);
     gl_contentPane.setHorizontalGroup(
-    	gl_contentPane.createParallelGroup(Alignment.LEADING)
+    	gl_contentPane.createParallelGroup(Alignment.TRAILING)
     		.addComponent(label, GroupLayout.PREFERRED_SIZE, 625, GroupLayout.PREFERRED_SIZE)
+    		.addComponent(lblNewLabel)
     		.addGroup(gl_contentPane.createSequentialGroup()
-    			.addGap(89)
-    			.addComponent(lblSearchBookBy)
-    			.addGap(76)
-    			.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 241, GroupLayout.PREFERRED_SIZE))
-    		.addGroup(gl_contentPane.createSequentialGroup()
-    			.addGap(212)
-    			.addComponent(lblNewLabel))
-    		.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-    			.addContainerGap(97, Short.MAX_VALUE)
     			.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 148, GroupLayout.PREFERRED_SIZE)
     			.addGap(60)
     			.addComponent(btnBack, GroupLayout.PREFERRED_SIZE, 148, GroupLayout.PREFERRED_SIZE)
     			.addGap(172))
+    		.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+    			.addGap(87)
+    			.addComponent(lblSearchBookBy)
+    			.addGap(77)
+    			.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 241, GroupLayout.PREFERRED_SIZE)
+    			.addContainerGap(132, Short.MAX_VALUE))
     );
     gl_contentPane.setVerticalGroup(
     	gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -147,11 +128,11 @@ public class SearchBookBy
     			.addComponent(label)
     			.addGap(35)
     			.addComponent(lblNewLabel)
-    			.addGap(58)
+    			.addGap(38)
     			.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
     				.addComponent(lblSearchBookBy)
     				.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
-    			.addGap(118)
+    			.addGap(139)
     			.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
     				.addComponent(btnBack)
     				.addComponent(btnNewButton))

@@ -227,9 +227,5 @@ public class ChangeSelfPass extends JFrame {
 		getContentPane().setLayout(groupLayout);
 	}
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		ChangeSelfPass c = new ChangeSelfPass("Change Self Password");
-		c.setVisible(true);
-	}
+	
 }

@@ -40,7 +40,22 @@ public class FacultySection
     });
     getContentPane().add(btnViewAllBook);
     
-    JButton btnViewSelfAccount = new JButton("view self account");
+    JButton btnViewSelfAccount = new JButton("view all faculty ");
+    btnViewSelfAccount.addActionListener(new ActionListener() {
+    	public void actionPerformed(ActionEvent e) {
+GetValues1.getAllInfo();
+            
+            JFrame obj = new JFrame("All Users");
+            obj.setSize(700, 500);
+            obj.setLocationRelativeTo(FacultySection.this.getParent());
+            obj.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            
+            JTable table = new JTable(GetValues1.records, GetValues1.header);
+            JScrollPane pane = new JScrollPane(table);
+            obj.getContentPane().add(pane);
+            obj.setVisible(true);
+    	}
+    });
     btnViewSelfAccount.setBackground(new Color(255, 255, 240));
     getContentPane().add(btnViewSelfAccount);
     
@@ -56,6 +71,13 @@ public class FacultySection
     getContentPane().add(btnChangeSelfPassword);
     
     JButton btnAddANew = new JButton("Submit book");
+    btnAddANew.addActionListener(new ActionListener() {
+    	public void actionPerformed(ActionEvent arg0) {
+    		SubmitBook2 i = new SubmitBook2("Submit Book");
+    		i.setVisible(true);
+    		FacultySection.this.dispose();
+    	}
+    });
     btnAddANew.setBackground(new Color(255, 255, 240));
     getContentPane().add(btnAddANew);
     
@@ -79,6 +101,13 @@ GetValues2.getAllBook();
     getContentPane().add(btnNewButton);
     
     JButton btnRequiredBook = new JButton("Required Book");
+    btnRequiredBook.addActionListener(new ActionListener() {
+    	public void actionPerformed(ActionEvent e) {
+    		RequiredBook r = new RequiredBook("Required Book");
+    		r.setVisible(true);
+    		FacultySection.this.dispose();
+    	}
+    });
     btnRequiredBook.setBackground(new Color(255, 255, 240));
     getContentPane().add(btnRequiredBook);
   }

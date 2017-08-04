@@ -39,7 +39,22 @@ public class StudentSection
     });
     getContentPane().add(button);
     
-    JButton btnViewAllThe = new JButton("View Self Account");
+    JButton btnViewAllThe = new JButton("View All Student");
+    btnViewAllThe.addActionListener(new ActionListener() {
+    	public void actionPerformed(ActionEvent arg0) {
+GetValues1.getAllInfo1();
+            
+            JFrame obj = new JFrame("All Users");
+            obj.setSize(700, 500);
+            obj.setLocationRelativeTo(StudentSection.this.getParent());
+            obj.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            
+            JTable table = new JTable(GetValues1.records, GetValues1.header);
+            JScrollPane pane = new JScrollPane(table);
+            obj.getContentPane().add(pane);
+            obj.setVisible(true);
+    	}
+    });
     btnViewAllThe.setBackground(new Color(255, 255, 240));
     getContentPane().add(btnViewAllThe);
     
@@ -58,7 +73,11 @@ public class StudentSection
     btnViewNotice.setBackground(new Color(255, 255, 240));
     btnViewNotice.addActionListener(new ActionListener()
     {
-      public void actionPerformed(ActionEvent arg0) {}
+      public void actionPerformed(ActionEvent arg0) {
+    	  RequiredBook2 r = new RequiredBook2("Required Book");
+  		r.setVisible(true);
+  		 StudentSection.this.dispose();
+      }
     });
     getContentPane().add(btnViewNotice);
   }

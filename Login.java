@@ -18,6 +18,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 public class Login
   extends JFrame
@@ -136,20 +139,19 @@ public class Login
     				.addGroup(groupLayout.createSequentialGroup()
     					.addGap(50)
     					.addComponent(btnLoginNow)))
-    			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+    			.addPreferredGap(ComponentPlacement.RELATED, 2, Short.MAX_VALUE)
+    			.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
     				.addGroup(groupLayout.createSequentialGroup()
-    					.addGap(2)
     					.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
     					.addPreferredGap(ComponentPlacement.UNRELATED)
     					.addComponent(lblEnterPassword, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE)
     					.addPreferredGap(ComponentPlacement.RELATED))
-    				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-    					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+    				.addGroup(groupLayout.createSequentialGroup()
     					.addComponent(btnReset, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE)
     					.addGap(66)))
     			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
     				.addComponent(btnRegistration, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE)
-    				.addComponent(passwordField, GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE))
+    				.addComponent(passwordField, GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE))
     			.addContainerGap())
     );
     groupLayout.setVerticalGroup(
@@ -170,6 +172,18 @@ public class Login
     );
     
     getContentPane().setLayout(groupLayout);
+    
+    JMenuBar menuBar = new JMenuBar();
+    setJMenuBar(menuBar);
+    
+    JMenuItem mntmNewMenuItem = new JMenuItem("Admin");
+    menuBar.add(mntmNewMenuItem);
+    
+    JMenuItem mntmFaculty = new JMenuItem("Faculty");
+    menuBar.add(mntmFaculty);
+    
+    JMenuItem mntmStudent = new JMenuItem("Student");
+    menuBar.add(mntmStudent);
   }
   
   public static void main(String[] args)
